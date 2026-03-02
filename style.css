@@ -1,0 +1,87 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.changelog{
+    --cl-ver-font-size: 1rem;
+    --cl-item-font-size: 1rem;
+    --cl-ver-font: var(--cl-ver-font-size) sans-serif;
+    --cl-item-font: var(--cl-item-font-size) sans-serif;
+    
+
+    --cl-ver-width: auto;
+    --cl-item-width:auto;
+    --cl-row-height: 3rem;
+
+    --cl-gap-width: 20%;
+
+    /*Position of the line inside the gap. From 0 to 1.*/
+    --cl-line-pos: 0.6;
+
+    --cl-line-width: 2px;
+    --cl-line-color: black;
+
+    --cl-bullet-size:16px;
+    --cl-bullet-color:black;
+
+    width: min(100%, 700px);
+    height: fit-content;
+}
+
+.changelog__list{
+    display: grid;
+    grid-template-columns: var(--cl-ver-width) var(--cl-gap-width) var(--cl-item-width);
+    border:2px solid black;
+    margin: 0;
+}
+.changelog__version{
+    grid-column: 1 / 3;
+    display: grid;
+    grid-template-columns: subgrid;
+    margin:0;
+    text-align: right;
+    transform: translateY( max(0px,calc((var(--cl-item-font-size) - 1em)/2)));
+    font:var(--cl-ver-font);
+}
+.changelog__version * {
+    grid-column: 1;
+    grid-row: 1;
+    display: block;
+    padding-bottom: var(--cl-row-height);
+
+}
+
+.changelog__version::before{
+    content: "";
+    background-color: var(--cl-line-color);
+    width: var(--cl-line-width);
+    align-self: stretch;
+    grid-column: 2;
+    grid-row: 1;
+    margin-left: calc(100% * var(--cl-line-pos) - var(--cl-line-width)/2);
+}
+
+.changelog__version::after{
+    content:"";
+    width: var(--cl-bullet-size);
+    height: var(--cl-bullet-size);
+    background-color: var(--cl-bullet-color);
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    align-self: start;
+    border-radius: 50%;
+    margin-left: calc(100% * var(--cl-line-pos) - var(--cl-bullet-size)/2);
+    margin-top: calc(1em /2 - var(--cl-bullet-size) / 2);  
+} 
+
+.changelog__item{
+    grid-column: 3;
+    margin: 0;
+    font: var(--cl-item-font);
+    padding-bottom: var(--cl-row-height);
+    text-align: left;
+}
